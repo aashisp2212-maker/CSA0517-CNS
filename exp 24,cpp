@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int main(void) {
+    int n = 3599, e = 31;
+    int p = 0, q = 0, phi, d = 0;
+
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            p = i;
+            q = n / i;
+            break;
+        }
+    }
+
+    if (p == 0 || q == 0) {
+        printf("Prime factors not found.\n");
+        return 1;
+    }
+
+    phi = (p - 1) * (q - 1);
+
+    for (int i = 1; i < phi; i++) {
+        if ((e * i) % phi == 1) {
+            d = i;
+            break;
+        }
+    }
+
+    printf("n = %d\n", n);
+    printf("p = %d, q = %d\n", p, q);
+    printf("Phi(n) = %d\n", phi);
+    printf("Public key e = %d\n", e);
+    printf("Private key d = %d\n", d);
+
+    return 0;
+}
+n = 3599
+p = 59, q = 61
+Phi(n) = 3480
+Public key e = 31
+Private key d = 3031
