@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+static int gcd(int a, int b) {
+    while (b) { int t = b; b = a % b; a = t; }
+    return a;
+}
+
+static int mod_inverse(int a) {
+    for (int x = 1; x < 26; ++x)
+        if ((a * x) % 26 == 1) return x;
+    return -1;
+}
+
+int main(void) {
+    int a, b, p;
+    printf("Enter a b plaintext_number(0..25): ");
+    if (scanf("%d %d %d", &a, &b, &p) != 3) return 1;
+    if (gcd(a, 26) != 1) {
+        puts("Invalid a: it must be coprime to 26.");
+        return 1;
+    }
+
+    int c = (a * p + b) % 26;
+    int inv = mod_inverse(a);
+    int recovered = (inv * (c - b + 26)) % 26;
+
+    printf("cipher=%d recovered=%d\n", c, recovered);
+    return 0;
+}
